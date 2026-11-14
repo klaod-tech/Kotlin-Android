@@ -40,3 +40,6 @@ project(":CodeExample:ScopeFunction").projectDir = file("../CodeExample/ScopeFun
 
 include(":TableLayoutProject")
 project(":TableLayoutProject").projectDir = file("../TableLayoutProject/app")
+
+include(":IntentFilterProject")
+project(":IntentFilterProject").projectDir = file("../IntentFilterProject/app")
