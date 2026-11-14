@@ -43,3 +43,6 @@ project(":TableLayoutProject").projectDir = file("../TableLayoutProject/app")
 
 include(":IntentFilterProject")
 project(":IntentFilterProject").projectDir = file("../IntentFilterProject/app")
+
+include(":CustomDialogProject")
+project(":CustomDialogProject").projectDir = file("../CustomDialogProject/app")
