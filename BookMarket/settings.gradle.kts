@@ -37,3 +37,6 @@ project(":CodeExample:Function").projectDir = file("../CodeExample/Function/app"
 project(":CodeExample:Collection").projectDir = file("../CodeExample/Collection/app")
 project(":CodeExample:OOP").projectDir = file("../CodeExample/OOP/app")
 project(":CodeExample:ScopeFunction").projectDir = file("../CodeExample/ScopeFunction/app")
+
+include(":TableLayoutProject")
+project(":TableLayoutProject").projectDir = file("../TableLayoutProject/app")
