@@ -2,13 +2,20 @@ package com.androidbook.bookmarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class BooksActivity : AppCompatActivity() {
     lateinit var book1Obj : ImageView
@@ -18,7 +25,7 @@ class BooksActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContentView(R.layout.activity_books)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.books)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -47,6 +54,8 @@ class BooksActivity : AppCompatActivity() {
             Toast.makeText(getApplicationContext(),"미라클 HTML5 + CSS3 + 자바스크립트", Toast.LENGTH_LONG).show()
             BookItem4()
         }
+
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun BookItem1(){
@@ -95,5 +104,65 @@ class BooksActivity : AppCompatActivity() {
         intent.putExtra("description", "다채로운 예제를 통해 HTML5, CSS3, 자바스크립트를 설명합니다. 친절한 본문 설명과 더불어 캐릭터의 친근한 대화로 핵심 내용을 짚어주고, 실습하는 재미를 느낄 수 있는 동적인 예제와 시각적 요소를 충분히 활용한 예제를 다수 제공합니다.")
         intent.putExtra("category", "IT/모바일")
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_books, menu)
+        // menuInflater.inflate(R.menu.menu_books,menu)
+
+        val searchItem:MenuItem? = menu?.findItem(R.id.menu_search)
+         val searchView: SearchView = searchItem?.actionView as SearchView
+
+         searchView.queryHint = "도서명을 입력해주세요."
+
+           searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+               // 입력 완료됬을때
+               override fun onQueryTextSubmit(query: String): Boolean {
+                   //tv1.text = query
+                   Toast.makeText(applicationContext,query,Toast.LENGTH_LONG).show()
+                   // true하면 키보드가 안내려감
+                   return false
+               }
+
+               // 입력할때마다 반응하는
+               override fun onQueryTextChange(newText: String): Boolean {
+                   //tv2.text = newText
+
+                   // true하면 키보드가 안내려감 근데 입력 도중이라 그다지 상관은 없음
+                   return false
+               }
+           })
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home->{
+                onBackPressed()
+            }
+            R.id.menu_home -> {
+                Toast.makeText(applicationContext,"홈으로 메뉴를 클릭하였습니다",Toast.LENGTH_LONG).show()
+                finish()
+                val intent:Intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.main_video -> {
+                Toast.makeText(applicationContext,"동영상강좌 메뉴를 클릭하였습니다",Toast.LENGTH_LONG).show()
+                return true
+            }
+            R.id.menu_customer -> {
+                Toast.makeText(applicationContext,"고객센터 메뉴를 클릭하였습니다",Toast.LENGTH_LONG).show()
+                return true
+            }
+            R.id.menu_mypage -> {
+                Toast.makeText(applicationContext,"마이페이지 메뉴를 클릭하였습니다",Toast.LENGTH_LONG).show()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

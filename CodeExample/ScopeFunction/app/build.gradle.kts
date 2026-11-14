@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.androidbook.scopefunction"
         minSdk = 24
-        targetSdk = 37
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
